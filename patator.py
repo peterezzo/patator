@@ -757,7 +757,7 @@ class CSVFormatter(logging.Formatter):
   def __init__(self, indicatorsfmt):
     fmt = '%(asctime)s,%(levelname)s,'+','.join('%%(%s)s' % name for name, _ in indicatorsfmt)+',%(candidate)s,%(num)s,%(mesg)s'
 
-    super(CSVFormatter, self).__init__(fmt=fmt, datefmt='%H:%M:%S')
+    super(CSVFormatter, self).__init__(fmt=fmt, datefmt=r'%Y-%m-%d %H:%M:%S')
 
   def format(self, record):
     pp = {}
@@ -835,7 +835,7 @@ def process_logs(queue, indicatorsfmt, argv, log_dir, runtime_file, csv_file, xm
 
     if not os.path.exists(results_csv):
       with open(results_csv, 'w') as f:
-        f.write('time,level,%s\n' % ','.join(names))
+        f.write('date,level,%s\n' % ','.join(names))
 
     handler_csv = logging.FileHandler(results_csv, encoding=encoding)
     handler_csv.addFilter(MsgFilter())
