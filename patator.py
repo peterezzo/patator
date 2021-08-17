@@ -2599,7 +2599,7 @@ class SSH_login(TCP_Cache):
   Response = Response_Base
 
   def connect(self, host, port, user):
-    fp = paramiko.Transport('%s:%s' % (host, int(port)))
+    fp = paramiko.Transport((host, int(port)))
     fp.start_client()
 
     return TCP_Connection(fp, fp.remote_version)
